@@ -7,7 +7,8 @@ const likeCount = document.querySelector("#like-count")
 // Interpolate like count number `${likesAmount} likes`
 const commentsList = document.querySelector("#comments-list")
 const form = document.querySelector("#comment-form")
-const likeButton = document.querySelector(#like-button)
+const likeButton = document.querySelector("#like-button")
+let likesCount = {}
 
 //Create fetch request
 //Parse returned data into json
@@ -18,18 +19,30 @@ const likeButton = document.querySelector(#like-button)
 //Add event listener to like button
 //On click event, grab the number, parse, positively increment the
 
+likeButton.addEventListener("click", () => {
+    
+    likesCount.likes += 1
+    //likesCount.textContent = `${likesCount} likes`
+
+})
+
 fetch(flatagramAPI)
 .then((r) => r.json())
 .then(renderFlatagram)
 
 function renderFlatagram(dataObj) {
    // console.log(dataObj)
+    likesCount = {...dataObj}
+
     cardTitle.textContent = dataObj.title
     cardImage.src = dataObj.image
     likeCount.textContent =`${dataObj.likes} likes`
   //  console.log(dataObj.comments)
-
+    renderLikes()
     renderComments(dataObj.comments)
+
+    
+
 }
 
 function renderComments(comments) {
@@ -47,3 +60,6 @@ function renderCommentsToPage(comment) {
 
 }
 
+//function renderLikes() {
+//    document.querySelector("#like-count").textContent = `${likesCount} likes`
+// }
